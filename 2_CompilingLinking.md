@@ -6,13 +6,16 @@
 
 `:set number` will display line numbers.
 `shift g` will go to the end of the file.
+`gg` goes to the beginning of the file.
 `:wq` to quit out of Vim. 
+`/` will allow you to search for something
+- `n` lets you go to the next term
 
 `cp file1 file2` will copy file1 onto file2 and you can use this to restart to correct an error.
 
 `o` will allow you to add a line right after the current line. 
 
-## C Basics
+## C Basics, Compiling and Linking
 
 ### See `hello.c` in CLAC.
 
@@ -48,5 +51,32 @@ Run `hello`
 
 ### `myadd()` function added to `hello.c`
 
+
+
 ### Compiling Multiple Buffers
+
+
+
+### #include `<stdio.h>`
+
+This is a directive that tells the compiler "please find the file `stdio.h` and put the content of the file in that line". This is textual replacement.
+
+`printf()` is a function collected in `stdio` so it doesn't generate a warning when compiled.
+- the prototype for `printf()` is included in `stdio.h`
+
+Standard library functions are linked automatically. The `libc.a` is a standard C library file. `libm.a` is another standard C library file that stores math functions.  
+
+### `make` tool
+
+This does compilation, linking, and possibly other things, automatically. A programmable scriptor, automator. 
+
+A   `Makefile` has the format:
+- what you want to produce `main.o` (target)
+- what you need to produce that file `main.c` (prerequisite)
+- how to produce `gcc -c -Wall -g main.c` (recipe)
+
+```
+main.o: main.c
+    gcc -c -Wall -g main.c
+```
 
