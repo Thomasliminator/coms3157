@@ -1,4 +1,4 @@
-# 2. Vim Tutorial and C Basics
+# 2. Vim Tutorial and Compiling
 
 ## Vim Tutorial
 
@@ -78,5 +78,47 @@ A   `Makefile` has the format:
 ```
 main.o: main.c
     gcc -c -Wall -g main.c
+```
+
+## Macros
+
+The `#include <stdio.h>` was a macro.
+
+### #define
+
+`#define PI 3.14` will replace all instances of PI as 3.14
+`define SQR(x) x*x` can be used as a function.
+- for example, `SQR(3)` will calculate `3*3`
+
+Macros are not used very much anymore. Macros are highly discoraged and if they must be used, then use parenthesis everywhere. Should just use a proper function.
+
+#### possible error example
+`SQR(3+4)` will give `3 + 4 * 3 + 4`
+
+###  #ifdef (conditional compilation)
+
+```C
+#ifdef __unix__
+void f() {
+    ---
+}
+
+#else
+void f() {
+    ---
+}
+#endif
+```
+
+This can be used if we are using different OS or something. Then, we can bring in a different version of the function. 
+
+From now on, any time you write a header file you have a file of this convention:
+
+```
+#ifndef __MYADD_H__
+#define __MYADD_H__
+int myadd(int, int, int);
+
+#endif
 ```
 
