@@ -66,7 +66,7 @@ This is a directive that tells the compiler "please find the file `stdio.h` and 
 
 Standard library functions are linked automatically. The `libc.a` is a standard C library file. `libm.a` is another standard C library file that stores math functions.  
 
-### `make` tool
+## Makefiles and `make` tool
 
 This does compilation, linking, and possibly other things, automatically. A programmable scriptor, automator. 
 
@@ -76,8 +76,14 @@ A   `Makefile` has the format:
 - how to produce `gcc -c -Wall -g main.c` (recipe)
 
 ```
+main: main.o myadd.o
+    gcc main.o myadd.o -o main
+
 main.o: main.c
     gcc -c -Wall -g main.c
+    
+myadd.o myadd.c myadd.h
+    gcc -c -Wall -g myadd.c
 ```
 
 ## Macros

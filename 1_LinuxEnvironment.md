@@ -35,6 +35,10 @@ Linux convention is to put a `.` in front of file name to hide it.
 Some basic UNIX commands:
 `man, cat, less, rm, cp, ls, ll (an alias for ls -alF), pwd, cd, mkdir, alias, locate, gcc, make, touch, clear, history, date, mv, grep, diff, find, tar`
 
+### `cmp` and `diff`
+
+The `cmp` and `diff` functions tell compare files. The first tells us if they are different and the second tells us where they are different.
+
 ### Aliases and Configuration
 
 We can use aliases to make shortcuts for commands.

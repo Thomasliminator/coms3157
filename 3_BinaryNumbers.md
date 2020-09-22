@@ -61,6 +61,15 @@ If you mean hex number, you have to write preface it with `0x`
 
 `0x80000000` is the greatest magnitude negative number.
 
+### Differences between `0` `\0` and `'0'`
+
+`0` is the number 0.
+`\0` is also the number 0, it is identical to above.
+-written like this to indicate "characterness" of the number: it is more instructive
+
+`'0'` is different --> this is number 48. This is a character that is found in the ASCII table. 
+
+
 ### ASCII
 
 ```C
