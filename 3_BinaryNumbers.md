@@ -46,4 +46,31 @@ If all the bits are 1, then it will be equal to -1. This is the case for any num
 
 The number 100...0 is the largest (magnitude) negative number.
 
+### Hexadecimal Numbering System
+
+The hexadecimal numbering system goes from 0-9-A-F.
+
+If you mean hex number, you have to write preface it with `0x`
+- for example `0x12` is a hexadecimal number. 
+
+#### Examples
+
+`int x = 0xffffffff;` is the same as `int x = -1`
+
+`0x7fffffff` this is the maximum positive number.
+
+`0x80000000` is the greatest magnitude negative number.
+
+### ASCII
+
+```C
+{
+    int x = 'a';
+    
+    //is the same as
+    int x = 97
+    
+    int y = 'a' + 1; //is a valid expression
+}
+``` 
 
