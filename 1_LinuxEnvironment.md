@@ -96,7 +96,7 @@ Run `vimtutor` in the command line to get a built-in tutorial for Vim.
 ## Setting up your Shell Environment
 
 The application with which you interactin a termianl window is called a "shell".
-The CLAC account is configured to use Bash shell by default.
+The CLAC account is configured to use the Bash shell by default.
 
 Type `echo $SHELL`. It should say `/bin/bash`.
 
