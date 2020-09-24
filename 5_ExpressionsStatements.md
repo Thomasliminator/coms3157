@@ -16,7 +16,7 @@ Things might be less straightforward with an expression such as `x = 1`, where x
 - that means that we can do stuff like `(x = 1) = 2` (although unconventional)
 - x is still 1 after the above expression although the expression evaluates to 3.
 
-`int x = 1;` this is not an expression, this is declaring and initializing. All expressions are statements but not all statements are expressions. 
+`int x = 1;` this is not an expression, this is declaring and initializing. All expressions are statements but not all statements are expressions.
 
 #### The following are all equivalent:
 
@@ -75,6 +75,7 @@ Right shift `>>` works the same way except, you fill in what was the left most b
 `int z = ~0;` this will flip all of the bits. The previous expression evaluates to -1. 
 
 `int z = 19 & (1<<4);` evaluates to 16. It just picked out a particular bit `000...010000`.
+- picks out the 5th bit from the right
 
 #### Practice Problems
 
