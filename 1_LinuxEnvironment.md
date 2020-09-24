@@ -37,7 +37,7 @@ Some basic UNIX commands:
 
 ### `cmp` and `diff`
 
-The `cmp` and `diff` functions tell compare files. The first tells us if they are different and the second tells us where they are different.
+The `cmp` and `diff` functions tell compare files. The first tells us if they are different and the second tells us where they are different. `cmp` compares it byte by byte.
 
 ### Aliases and Configuration
 
@@ -111,3 +111,5 @@ if [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
 ```
+
+*edited L9/10, 9/14*
