@@ -80,18 +80,44 @@ We have a warning when we compile `hello.c` because of "implicit declaration of 
 
 We must declare the function by writing the first line of the function and terminating with a semicolon. This is also known as the prototype of the function, also a signature of a function. 
 
+**You must have the prototype, at a minimum, of the function**
+
+Why don't we have to list `printf()` prototype?
+
 ### #include `<stdio.h>`
+
+This is not the same as "importing" in Java. This is an inclusion.
 
 This is a directive that tells the compiler "please find the file `stdio.h` and put the content of the file in that line". This is textual replacement.
 
 `printf()` is a function collected in `stdio` so it doesn't generate a warning when compiled.
 - the prototype for `printf()` is included in `stdio.h`
 
-Standard library functions are linked automatically. The `libc.a` is a standard C library file. `libm.a` is another standard C library file that stores math functions.  
+If you do `"myadd.h"` this tells to look in the current directory first in comparison to `<stdio.h>`.
+
+Standard library functions are linked automatically by the gcc. The `libc.a` is the core standard C library file. `libm.a` is another standard C library file that stores math functions. `.a` files are like zip files, "a for archive". 
+
+Use `-lc` to link with `libc.a` and `-lm` to link with `libm.a`. However, `libc.a` is automatically linked.
+
+#### `myadd.c` has been changed to take 3 parameters
+
+Compilation is simply taking a `.c` file and making a `.o` file. It will check that when you call `myadd(x, y)` that it matches the prototype given. There is no error when compiling. No error with linking either. 
+
+However, if we run it, we don't get the expected value. Linking only looks and matches names of functions. It doesn't check if the parameters are correct. It pulls in garbage from the next memory location to fill in `salt`.  
+
+To fix this, we declare it in the `.c` file by including the header file. Now, if we try to compile `myadd.c` it will give us an error of "conflicting types". 
 
 ## Makefiles and `make` tool
 
-This does compilation, linking, and possibly other things, automatically. A programmable scriptor, automator. 
+We don't want to type `gcc ...` every single time to compile and link all the time. We want to automate.
+
+`make` does compilation, linking, and possibly other things, automatically. A programmable scriptor, automator. It is a program that we run. It reads a `Makefile` and follows the directions. 
+
+Do `cat -t Makefile` which will turn all tabs into `^I`. `-n` is the line number option. `-e` gives up the end of the line option. `-v` will show any control characters embedded in the file. 
+
+Run the Makefile using `make`. It will only make the first target and then quit. You have to explicitly say if you want to make a second target. The mission is to make the first target.
+
+Use `touch [fileName]` to update a time stamp. This will simulate a change. 
 
 A   `Makefile` has the format:
 - what you want to produce `main.o` (target)
@@ -108,6 +134,22 @@ main.o: main.c
 myadd.o myadd.c myadd.h
     gcc -c -Wall -g myadd.c
 ```
+
+We can make variables in `Makefile`. Use the format `$([variableName])` to use them.
+
+`make` assumes that if we are building something `.o` out of something `.c` using `CC` and `CFLAGS` variables, it can deduce the commands.
+
+### `clean`
+
+We add `clean` that will remove `.o` files and executable files.
+The `-f` flag forces the remove even if the file is not seen.
+This is a fake "`phony`" target because we only want the command to be run, we don't need `clean` to be produced. 
+
+### `all`
+
+`all: clean main`
+It first does the clean and then does the full make. Tries to produce clean first which will run the rm command. Then it will produce the target main: since all the files are gone it will rebuild everything. 
+`make all` will rebuild everything. 
 
 ## Macros
 
@@ -151,4 +193,4 @@ int myadd(int, int, int);
 #endif
 ```
 
-*edited L9/15*
+*edited L9/15 L9/17 NL9/10*
