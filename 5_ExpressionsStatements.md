@@ -95,7 +95,7 @@ int g(int x){
 
 The above function turns off the 5th bit from the right. 
 
-## Statements
+## Statements and Variables
 
 ### Loops
 
@@ -119,15 +119,97 @@ A scope in C is a section/region of code, enclosed within {}. Variables declared
 
 ```C
 foo(){
-    int x;
+    int x; //automatic/local/stack variable
     x = 0;
     {
         int x;
         x = 1;
         printf("%d", x);
     }
+    printf("%d", x); //this x is from the outside, will print 0.
+}
+```
+Local/**automatic**/stack variables only exist inside the scope they are declared, or any inner scopes. Function parameters are also automatic variables.
+
+### Static Variables
+
+There is a second type of variable called **static** variable. (Has nothing to do with Java "static") There are three different kinds of static variables.
+- 1. Global static: these are global variables, declared outside of any function. Discouraged, passing parameters through functions are much better.
+- 2. File static
+- 3. Function static
+
+bar.c
+```C
+int x = 5; //this is a global static variable
+
+int f1()
+{
+    int z; //local variable
+    x = x + 1;
     printf("%d", x);
+}
+
+int f2() {
+```
+
+foo.c
+```C
+extern int x; //declare int x is external to this file, will be found in link time.
+int f3()
+{
+    x  = x+2; //you can access x declared in main.c
 }
 ```
 
-*edited NL9/24*
+The difference between the three static variables types is who can access it. In file static, we cannot access outside of the file that it is declared in:
+
+bar.c
+```C
+static int x = 5; //the static keyword prevents access from any other file.
+
+int f1(){
+   
+}
+
+int f2() {
+```
+
+Function static variables don't behave like they look like they should. 
+
+```C
+int f()
+{
+    static int count = 0; //this does not get reset, the gets set to 0 when it first starts the program.
+    count ++;
+    return count;
+}
+
+int main()
+{
+    int s = 0;
+    for(int i = 0; i < 10; i++) //will count 10 times.
+        s += count();
+    printf("%d", s);
+}
+```
+
+`static int count = 0` will get skipped every time the function is called. However, it makes it so that no one else can modify count. This is what you do if you want a global life time but only want to be able to modify it inside of the function.
+
+## Process Address Space
+
+RAM memory has addresses from 0 to (512) (bytes).
+
+Every program thinks that it has 0 to 512G access to RAM. This is fake, **virtual** memory. Every single tab in Chrome thinks it has access to this. 
+
+A lot of underlying mapping that goes from the virtual memory to the RAM. Assume you have access to the entire address space. 
+
+64-bit computer means you can fetch/store 8 bytes at a time. Memory address 0 is not used because it is reserved for something special.
+
+In some low address, the program code is stored. Before it calls the main function, it takes up some more on top to put the static variables. 
+
+The automatic variables grow and shrink in size, they are stored at the top region called "stack". 
+
+There is another place called "heap". `malloc` works with the heap region. 
+
+
+*edited NL9/17, NL9/19, L9/24*
