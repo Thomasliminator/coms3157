@@ -199,7 +199,7 @@ int main()
 
 RAM memory has addresses from 0 to (512) (bytes).
 
-Every program thinks that it has 0 to 512G access to RAM. This is fake, **virtual** memory. Every single tab in Chrome thinks it has access to this. 
+Every program/running process thinks that it has 0 to 512G access to RAM. This is fake, **virtual** memory. For example, every single tab in Chrome thinks it has access to this. 
 
 A lot of underlying mapping that goes from the virtual memory to the RAM. Assume you have access to the entire address space. 
 
