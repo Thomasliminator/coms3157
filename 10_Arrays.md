@@ -47,19 +47,88 @@ Immediately turns itself into `char *` type which will point to the first elemen
             ;
     }
     
+    void strcat(char *t, char *s)
+    {
+        while(*t) {t++;}
+        strcpy(t, s);
+    }
+    
     int main()
     {
+        /*
         char t[4];
         char *s = "abc";
         strcpy(t, s);
+        */
+        
+        char t[6];
+        strcpy(t, "abc");
+        strcat(t, "xy");
     }
 ```
 
 `t` and `s` are different variables in `strcpy()` and `main()`. In the "canonical" version, at the end of the loop we will be pointing one past the last element, which is okay in C.
 
+`strcat()` is concatenation, appending to the end of the string. We move the pointer of `t` to `0` and then call `strcpy()` to copy `s` at the end of the string.
 
+Buffer overflow: because the string that you are copying is the target allocated array, you will keep writing past the array. That behavior can be exploited by malicious attackers.
 
+`strcpy()` and `strcat()` will blindly do the while loop until it sees a 0, which is kind of dangerous.
 
+### `strncpy()`
 
+Better safer versions of copy and concatenation:
+
+`strncpy(char *t, char *s, size_t n)`
+- `size_t` is basically an unsigned int. It is a limit for the copy (number of characters)
+
+`strncat(char *t, char *s, size_t n)`
+
+## args
+
+Can you write a program that takes command line arguments?
+
+```C
+int main(int argc, char **argv) //in the textbook written as char *argv[]
+{
+```
+
+If we do `$ ./a.out hello world` it will 
+
+`argc` is 3. It will prepare an array of length four where each element is a pointer to an array. It points to the arguments in the command line. The final element in the array is a null pointer.
+
+`argv` points to the array of pointers. 
+
+```C
+{
+int a[10]
+int *p = &a[0];
+}
+```
+
+Writing a piece of code that prints out the arguments in the command line. Also skip the executable file name. 
+
+```C
+int main(int argc, char **argv)
+{
+    argv++;
+    while(*argv)
+    {
+        printf("%s", *argv++);
+    }
+}
+```
+
+## Lab 2, Part II
+
+In lab 2, make sure that everything is of the right type. Type analysis is very important in the lab.
+
+There will be a main function that can't be changed. 
+
+Recommend doing it in stages.
+1. Make sure that you successfully copied and make sure they point to the same strings.
+2. Then duplicate the strings and change to capital letters. 
+
+When freeing, you have to free the strings first before you free the middle. 
 
 *updated NL9/26*
