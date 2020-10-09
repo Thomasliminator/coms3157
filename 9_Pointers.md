@@ -142,7 +142,7 @@ This is legal in C!
 
 When you return from a function, local variables and arrays will cease to exist.
 How can we declare an array that multiple functions can use? 
-- that is what the heap is for
+- that is what the heap is for.
 
 ```C
 int *foo()
