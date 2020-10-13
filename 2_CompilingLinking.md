@@ -139,6 +139,26 @@ We can make variables in `Makefile`. Use the format `$([variableName])` to use t
 
 `make` assumes that if we are building something `.o` out of something `.c` using `CC` and `CFLAGS` variables, it can deduce the commands.
 
+We can ultimately simplify the Makefile as follows:
+
+```
+CC = gcc
+CFLAGS = -Wall -g
+
+main: main.o myadd.o
+
+main.o: main.c myadd.h
+
+myadd.o: myadd.c myadd.h
+
+.PHONY: clean
+clean:
+    rm -f *.0 main core
+    
+.PHONY: all
+all: clean main
+```
+
 ### `clean`
 
 We add `clean` that will remove `.o` files and executable files.
@@ -193,4 +213,4 @@ int myadd(int, int, int);
 #endif
 ```
 
-*edited L9/15 L9/17 NL9/10*
+*edited L9/15 L9/17 NL9/10 L9/22*
