@@ -199,7 +199,14 @@ int main()
 
 ## Process Address Space
 
-RAM memory has addresses from 0 to (512) (bytes).
+The memory diagram is: 
+1. operating system code & data
+2. stack
+3. heap
+4. static variables
+5. program code
+
+RAM memory has addresses from 0 to (5   12) (bytes).
 
 Every program/running process thinks that it has 0 to 512G access to RAM. This is fake, **virtual** memory. For example, every single tab in Chrome thinks it has access to this. 
 

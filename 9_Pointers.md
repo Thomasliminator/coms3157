@@ -21,7 +21,7 @@ foo()
 
 `p = &x;` will give you the address. 
 
-`*` is an operator that operates on a pointer variable and it goes into what it's pointing to.
+`*` is an operator that operates on a pointer variable and it goes into what it's pointing to. It "dereferences" a pointer.
 
 ```
 int i = 3;
@@ -175,4 +175,4 @@ When we do `free(a)` it will mark the (40) bytes as not allocated so we can use 
 
 You can keep `malloc()`ing and the heap will continue to grow. It will also consist of a lot of holes as the program keeps executing. 
 
-*edited NL9/19, NL9/24*
+*edited NL9/19, NL9/24, L9/29*
