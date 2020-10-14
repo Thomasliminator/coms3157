@@ -35,7 +35,9 @@ In this case, you will make a change to a file, `git diff` to show the change, `
 Type the following to submit a lab:
 `/home/w3157/submit/submit-lab lab[N]`
 
+### Other Commands in Git
 
+If you want to remove something, you shouldn't do `rm` but you should do `git rm` which will remove it from the directory and the git repository.
 
 
 

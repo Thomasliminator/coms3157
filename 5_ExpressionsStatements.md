@@ -70,6 +70,8 @@ z = x << 2; //4
 For bitwise or, you line up the binary representation and do "or" on each digit. If you have at least one "1" you return 1. Same with "and"
 
 `<<` is a left shift. You shift the digits to the left. The ones that fall off are discarded. The remaining on the right side are filled in with zeros. 
+This is the same thing as multiplying by 2<sup>n</sup>. It doesn't hold if bits are falling off the left side. 
+
 Right shift `>>` works the same way except, you fill in what was the left most bit to begin with. You do this because it makes sense to preserve the sign. 
 
 `int z = ~0;` this will flip all of the bits. The previous expression evaluates to -1. 
