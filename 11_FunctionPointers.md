@@ -38,7 +38,7 @@ Reference the file `lectnote07.c` to see the code.
 
 `int (*f1)(const void *v1, const void *v2);` is the declaration of a variable (pointer to a function)
 - you dereference the pointer `f1` and then call it using the parenthesis after. After you call it you get an integer.
--`char *a[3]` a is an array of 3 pointers to char.
+- `char *a[3]` a is an array of 3 pointers to char.
 - you can call the function either by dereferencing it or not (the compiler will allow you to not include the *)
 
 
