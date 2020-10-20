@@ -50,3 +50,9 @@ Create a node on the heap using `malloc()`.
 - You can do a short hand `assert(node)`.
 
 When freeing memory for 2 nodes, free the second one first then free the first. Look at code for `struct Node *create2Nodes(int x, int y)` method.
+
+
+
+
+
+*updated L10/13, L10/20*
