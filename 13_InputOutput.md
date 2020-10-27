@@ -27,13 +27,18 @@ Use `2>` to redirect `stderr`. `2>&1` means redirect `stderr` to the same place 
 
 `cat myinput | ./a.out` the `stdout` of the first goes directly to the `stdin` of the next. The effect is the same as the command  `./a.out < myinput`. 
 
+### Formatted I/O
+
+Things such as `scanf()` `printf()`.
+- there are a ton of options: 
+
 ## File I/O
 
+### Buffering
 
 
 
 
 
 
-
-*updated L10/22*
+*updated L10/22, L10/27*
