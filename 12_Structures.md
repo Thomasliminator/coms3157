@@ -3,7 +3,7 @@
 ## `struct`
 
 Similar to class in Java. Collects data fields into one object and then you can add methods to it.
-In `struct` you cannot add a method in C. 
+In `struct` you cannot add a method in C. It defines a type. 
 
 ```C
 struct Pt {
@@ -20,7 +20,7 @@ double x1 = p1.x;
 struct Pt *q1;
 q1 = &p1;
 
-x1 = (*q1).x;
+x1 = (*q1).x; //. binds more tightly than *
 x1 = q1->x; //how to access through the pointer
 
 printf("%lu\n", sizeof(p1)); //prints 16 
@@ -28,6 +28,8 @@ printf("%lu\n", sizeof(p1)); //prints 16
 ``` 
 
 This represents a point in a plane. You can access individual items with `p1.x` just like in Java.
+
+We use `.x` to access from a structure. We use `->` to access from a pointer.
 
 `printf("%p\n", q1);` vs. `printf("%p\n", &q1->x);` print the same pointer value. The first is of type `struct Pt *` and the latter is of `double *` type. 
 
@@ -44,12 +46,15 @@ struct Node{
 };
 ```
 
-Create a node on the heap using `malloc()`.
+See src: `list1.c` `list2.c`.
+
+Create a node on the heap using `malloc(sizeof(struct Node))`.
 
 `assert(argc == 1)` doesn't do anything if the condition is true. If it is not true, it stops the program. It is a debugging aid. Anything can be inside of the condition.
 - You can do a short hand `assert(node)`.
 
-When freeing memory for 2 nodes, free the second one first then free the first. Look at code for `struct Node *create2Nodes(int x, int y)` method.
+When freeing memory for 2 nodes, free the second one first then free the first. Look at code for `struct Node *create2Nodes(int x, int y)` method. 
+If you free the head then you lose the access to the next nodes and you cannot free. 
 
 
 
