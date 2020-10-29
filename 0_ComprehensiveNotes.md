@@ -415,50 +415,6 @@ If you mean hex number, you have to write preface it with `0x`
 ``` 
 
 *edited NL9/12*
-# 4. Git Lesson
-
-## Setting up Git
-
-All the following is in the context of *lab submission*. 
-
-### Setting up git directory in home directory
-
-`git init` initializes a directory as a git repository.
-Do not run this for the labs in the homework. You must use `git clone` instead.
-
-### Staging
-
-`git diff` compares the current version of the file with the version that's in the staging area.
-
-Three versions of README
-- A. README in git repo --> committed
-- B. README in staging --> to be committed
-- C. README in working directory
-
-`git status` shows the status of the files being tracked/untracked by git.
-`git log` shows commit log for git. 
-
-`git diff` shows the difference between B and C. 
-`git diff --cached` will show the difference between A and B.
-
-`git commit` will pop up a Vim editor to put a commit message.
-`git commit -m "[...]"` can be used to commit a single line message. 
-
-### Git Workflow
-
-You may be implementing one small feature but it requires you to modify many files. You want to work carefully but don't want to make 20 commits.
-In this case, you will make a change to a file, `git diff` to show the change, `git add` to put it to staging. Collect all of the changes to staging and then you can commit after the feature is committed.
-
-Type the following to submit a lab:
-`/home/w3157/submit/submit-lab lab[N]`
-
-### Other Commands in Git
-
-If you want to remove something, you shouldn't do `rm` but you should do `git rm` which will remove it from the directory and the git repository.
-
-
-
-*edited L9/22 L9/24*
 # 5. Expressions and Statements in C
 
 ## Expressions
@@ -683,386 +639,6 @@ There is another place called "heap". `malloc` works with the heap region.
 
 
 *edited NL9/17, NL9/19, L9/24*
-# 7. Git Tutorial
-
-Git is a source code version control system. It is useful to track changes in code.
-Git is required for the labs in 3157.
-
-## Configuring Git for COMS W3157
-
-### Set `EDITOR` envionment variable
-
-Type `echo $EDITOR` in the terminal. It should say `vim`. 
-
-If it doesnt, add the following line to the end of the `.bashrc` file in the home directory:
-`export EDITOR=[editor]`
-
-### Configuring your Git Environment
-
-We first need to tell git name and email. This information is stored in `~/.gitconfig`
-    `git config --global user.name "your full name"`
-    `git config --global user.email uni@columbia.edu`
-    
-### Creating a Project
-
-Create a new directory ~/tmp/test1
-
-Put the directory under git revision control:
-    `git init`
-
-`ll` will now show that there is a `.git` directory. The git repository for the current directory is stored here. 
-
-Write and run a `hello.c` program.
-
-`git status` will show that we have `a.out` and `hello.c` that are "Untracked". Let's move `hello.c` to the staging area using `git add hello.c`
-
-Now, let's commit it: `git commit`. Include a one line commit message when prompted.
-
-### Modifying Files
-
-Modify `hello.c` to print "bye world" and run `git status`. It reports that the file is "changed but not updated." 
-
-Before moving to staging, we can see what we changed in the file using `git diff` or `git diff --color`. 
-This tells us that we took out the "hello world" line and added a "bye world" line. 
-
-Move this to the staging area using `git add`. In git, "add" means this: move the change to the staging area. This could be a modification to a tracked file or the creation of a new file.
-
-At this point, `git diff` will report no change. Our change has been moved to staging. `git diff` reports the difference between the staging area and the working copy of the file. To see the difference between the last commit and the staging area, use `git diff --cached`
-
-Commit again with a one liner message: `git commit -m "changed hello to bye"`
-
-To see commit history: `git log`
-
-You can add a brief summary of what was done at each commit: `git log --stat --summary`
-
-You can see the full diff at each commit: `git log -p` or `git log -p --color`
-
-### The tracked, the modified, and the staged
-
-A file in a directory under git revision control is either tracked or untracked. A tracked file can be unmodified, modified but unstaged, or modified and staged. 
-
-There are four possibilities for a file: 
-
-1. Untracked
-    Object files and executable files that can be rebuilt are usually not tracked.
-2. Tracked, unmodified
-    The file is in the git repository, and it has not been modified since the last commit. "git status" says nothing about the file.
-3. Tracked, modified, but unstaged
-    You modified the file, but didn't `git add` the file. The change has not been staged, so it's not ready for commit yet.
-4. Tracked, modified, and staged
-    You modified the file, and did `git add` the file. The change has been moved to the staging area. It is ready for commit.
-    
-The staging area is also called the "index".
-
-### Other Useful Git Commands
-
-To rename a tracked file: `git mv old-filename new-filename`
-
-To remove a tracked file from the repository: `git rm filename`
-
-The mv or rm actions are automatically staged, but you still have to commit the actions.
-
-If you make changes and want to go to the version last committed (the file must not be staged yet), then you can do: `git checkout -- filename`
-
-If the file has been staged, you must unstage it first `git reset HEAD filename`
-
-To pull up a manual page or a command, for example `git status`:
-    `git help status` or
-    `man git-status`
-
-Search for specified patterns in all files in the repository: `git prep printf`
-
-### Cloning a Project
-
-Often times, a programmer starts with an existing code base. When the code base is under git version control, you can *clone* the repository.
-
-Let's clone test 1 into test 2: `git clone test1 test2`
-
-If we run `git log` you will see that the entire commit history is replicated here. The two repositories are indistinguishable after cloning.
-
-You can run `git log origin` to see commit history after the clone.
-
-### Generating a Patch Set
-
-You can save the full details of everything done after cloning with: `git format-patch --stdout origin > mywork.mbox`
-
-If you open `mywork.mbox` with editor, you will see that the file contains the full diffs of all commits. A diff is also called a patch. The file therefore contains a set of patches, one for each commit after cloning.
-
-When you were looking at the mywork.mbox file in your editor, you might notice that each patch looks like an email message. That's because they are. `.mbox` is the UNIX mailbox format so it can be viewed using an email application. 
-
-Use mutt, a terminal based email app, to view the file. Type `q` to exit out of mutt.
-    `mutt -f mywork.mbox`
-    
-If you want to read the file with the diffs in color, run the following command. Use the arrow keys to scroll and `q` to quit. 
-    `cat mywork.mbox | colordiff | less -R`
-    
-The patch file is what you submit when you complete a lab assignment. 
-
-### Applying the Patch Set
-
-The TAs will apply the patch to the original repository to grade the work. Let's go through that process.
-
-Clone test1 into test 3. Then run `git log` to verify you have commits made in test1 but not the ones made in test2. 
-
-Now, apply the patch using: git am ../test2/mywork.mbox
-
-### Adding a Directory into your Repository
-
-After the deadline, a solution will be added. Let's simulate that process. 
-
-```
-cd ../test1
-mkdir solution
-cd solution
-
-cp ../hello.c .
-echo 'hello:' > Makefile
-```
-
-Two files, `Makefile` and `hello.c` have been created in the solutions directory.
-Now, commit the new directory.
-
-### Pulling Changes from a Remote Repository
-
-To view solutions, you have to pull the changes to your repository. Let's pull changes we just made in test1 into test2:
-
-    cd ../test2/
-    git pull
-
-This looks at the original repository that you cloned from, fetches all changes made since clone, and merges the changes into the current repository.
-
-## Learning More about Git
-
-You can view the official git tutorial in `man gittutorial`
-
-You can also go to the [Official Git Documentation](http://git-scm.com/documentation)
-
-*edited T9/27*
-# 8. Vim Tutor
-
-## Lesson 1
-
-### Lesson 1.1: Moving the Cursor
-
-To move the cursor, press the h, j, k, l keys as follows:
-- `j` moves down
-- `k` moves up
-- `h` moves left
-- `l` moves right
-
-You can hold down the keys until it repeats.
-You can also use the normal arrow keys but "HJKL" is much faster.
-
-If you ever type a command incorrectly, press `<ESC>` to go into Normal mode.
-
-### Lesson 1.2: Exiting Vim
-
-Press the `<esc>` key to make sure you are in Normal mode. 
-Type `:q!` to exit and **discard** any changes that have been made. 
-
-### Lesson 1.3: Deleting Text
-
-Press `x` to delete the character under the cursor.
-
-### Lesson 1.3: Inserting Text
-
-Press `i` to insert text.
-
-### Lesson 1.4: Appending Text (adding text to the end of the line)
-
-Press `<shift> a` or `A` to append text.
-
-### Lesson 1.5: Editing a File
-
-Use `:wq` to save a file and exit.
-
-## Lesson 2
-
-### Lesson 2.1-2: Deletion Commands
-
-Type `dw` to delete a word.
-
-Type `d$` to delete to the end of the line. 
-
-### Lesson 2.2: On Operators and Motions
-
-Many commands that change text are made from an operator and a motion.
-
-The `d` operator has this short list of (non comprehensive) motions:
-- `w` until the start of the next word, EXCLUDING its first character.
-- `e` to the end of the current word, INCLUDING the last character.
-- `$` to the end of the line, INCLUDING the last character.
-
-### Lesson 2.4: Using a Count for a Motion
-
-Typing a number before a motion repeats it that many times.
-
-So, `2e` goes to the end of two words forward. `2w` goes to the beginning of two words forward.
-`0` goes to the start of the line.
-
-### Lesson 2.5 Using a Count to Delete More
-
-Typing a number with an operator repeats it that many times.
-
-We can do something like `d2w` to delete two words.
-
-### Lesson 2.6: Operating on Lines
-
-Type `dd` to delete an entire line.
-We can also do something like `2dd` to delete two lines.
-
-### Lesson 2.7: The Undo Command
-
-Type `u` to undo the last commands, `<shift>U` to fix a whole line.
-
-Type `CTRL-R` to redo commands.
-
-## Lesson 3
-
-### Lesson 3.1: The Put Command
-
-Type `p` to put previously deleted text after the cursor.
-
-### Lesson 3.2: The Replace Command
-
-Type `r[x`] to replace the character at the cursor with [`x]`.
-
-### Lesson 3.3: The Change Command
-
-To change until the end of a word, type `c[e]`
-
-### Lesson 3.4: More Changes Using `c`
-
-The change operator is used with the same motions as delete.
--`w` word
--`$` end of line
-
-## Lesson 4
-
-### Lesson 4.1: Cursor Location and File Status
-
-Type `CTRL-G` to show location in the file and the file status. Type `G` to move to a line in the file.
-
-`<shift> g` or `G` will go to the bottom of the file.
-`gg` will go to the top of the file.
-`[line number]<shift>g` will go to the specified line number.
-
-### Lesson 4.2: Search Command
-
-Type `/` followed by a phrase to search for the phrase. Use `?` to search in the backwards direction.
-
-Type `n` to search in the forward direction.
-Type `<shift>n` to search in the backwards direction.
-
-To go back to where you came from, press `CTRL-O`. `CTRL-I` goes forward.
-
-### Lesson 4.3: Matching Parenthesis Search
-
-Place cursor on a (, [, { and type `%` to find the matching closing character.
-
-### Lesson 4.4: The Substitute Command
-
-Type `:s/old/new/g` to substitute "new" for "old". The `g` flag at the end means that it is global for that line. It may be omitted.
-
-`:#,#s/old/new/g` where $,$ are the line numbers of the range of lines where the substitution is to be done.
-`:%s/old/new/g` to change every occurence in the whole file.
-`:%s/oild/new/gc` to find every occurence in the whole file with a prompt whether to substitute or not.
-
-## Lesson 5
-
-### Lesson 5.1: How to Execute an External Command
-
-Type `:![command]` to execute that command.
-The commands are finished by hitting `<ENTER>`.
-
-### Lesson 5.2: More on Writing Files
-
-Type `:w [FILENAME]` to save the changes made to the text.
-
-### Lesson 5.3: Selecting Text to Write
-
-To save part of the file type `v [motion]` `:w [FILENAME]`
-
-For example, `:'<,'>w TEST` is what you might see.
-
-### Lesson 5.4 Retrieving and Merging Files
-
-To insert the contents of a file, type `:r [FILENAME]`
-
-You can also read the output of an externam command. For example `:r !ls` reads the output of the `ls` command and puts it below the cursor.
-
-## Lesson 6
-
-### Lesson 6.1: The Open Command
-
-Type `o` to open a new line below the cursor and be put in Insert mode. Do `<SHIFT>O` to open up a line above the cursor.
-
-### Lesson 6.2: The Append Command
-
-Type `a` to insert text after the cursor.
-
-Remember, `<shift>A` is used to append at the end of a line.
-
-### Lesson 6.3: Another Way to Replace
-
-Type `<shift>R` to replace more than one character.
-
-### Lesson 6.4: Copy and Paste Text
-
-Use the `y` (yank) operator to copy text and use `p` to paste it. 
-
-`y` can be used as an operator, for example, we can `yw` to yank one word.
-
-### Lesson 6.5: Set Option
-
-Set an option so a search or substitute ignores case.
-
-`:set ic` will ignore case.
-`:set hls is` sets the hlsearch and incsearch options.
-`:set noic` will disable ignoring case
-
-If you want to ignore case for just one search command, use `\c` in the phrase.
-- `/ignore\c <ENTER>`
-
-## Lesson 7
-
-### Lesson 7.1: Getting Help
-
-Vim has a comprehensive online hel system. Try one of these three:
-- press `<HELP>` key
-- press `<F1>` key
-- type `:help <ENTER>`
-
-Type `CTRL-W CTRL-W` to jump from one window to another.
-Type `:q` to quit from the help window.
-
-You can get help on a specific subject:
--`:help w`
--`:help c_CTRL-D`
--`:help insert-index`
--`:help user-manual`
-
-### Lesson 7.2: Create a Startup Script
-
-To use more Vim features, you have to create a "vimrc" file.
-
-`:e ~/.vimrc` to edit the vimrc file.
-Read example contents using `:r $VIMRUNTIME/vimrc_example.vim`
-Write the file with `:w`
-
-### Lesson 7.3: Completion
-
-Command line completion with `CTRL-D` and `<TAB>`
-
-Make sure Vim is not in compatible mode: `:set nocp`
-Look what files exist in the directory `:!ls`
-Type the start of a command `:e`
-Press `CTRL-D` and Vim will show a list of commands that start with "e".
-Type `d,TAB>` and Vim will complete the command name to `:edit`.
-Now add a space and the start of an existing file name: `:edit FIL`
-Press `<TAB>` Vim will complete the name if it is unique.
-
-*edited T9/27*
 # 9. Pointers
 
 ## Pointer Types
@@ -1431,7 +1007,7 @@ Reference the file `lectnote07.c` to see the code.
 ## `struct`
 
 Similar to class in Java. Collects data fields into one object and then you can add methods to it.
-In `struct` you cannot add a method in C. 
+In `struct` you cannot add a method in C. It defines a type. 
 
 ```C
 struct Pt {
@@ -1448,7 +1024,7 @@ double x1 = p1.x;
 struct Pt *q1;
 q1 = &p1;
 
-x1 = (*q1).x;
+x1 = (*q1).x; //. binds more tightly than *
 x1 = q1->x; //how to access through the pointer
 
 printf("%lu\n", sizeof(p1)); //prints 16 
@@ -1456,6 +1032,8 @@ printf("%lu\n", sizeof(p1)); //prints 16
 ``` 
 
 This represents a point in a plane. You can access individual items with `p1.x` just like in Java.
+
+We use `.x` to access from a structure. We use `->` to access from a pointer.
 
 `printf("%p\n", q1);` vs. `printf("%p\n", &q1->x);` print the same pointer value. The first is of type `struct Pt *` and the latter is of `double *` type. 
 
@@ -1472,9 +1050,170 @@ struct Node{
 };
 ```
 
-Create a node on the heap using `malloc()`.
+See src: `list1.c` `list2.c`.
+
+Create a node on the heap using `malloc(sizeof(struct Node))`.
 
 `assert(argc == 1)` doesn't do anything if the condition is true. If it is not true, it stops the program. It is a debugging aid. Anything can be inside of the condition.
 - You can do a short hand `assert(node)`.
 
-When freeing memory for 2 nodes, free the second one first then free the first. Look at code for `struct Node *create2Nodes(int x, int y)` method.
+When freeing memory for 2 nodes, free the second one first then free the first. Look at code for `struct Node *create2Nodes(int x, int y)` method. 
+If you free the head then you lose the access to the next nodes and you cannot free. 
+
+
+
+
+
+*updated L10/13, L10/20*
+# 13. Input/Output
+
+## Standard I/O
+
+C libarary provides 3 I/O channels:
+
+`stdin` (standard input)
+- incoming character stream, normally from keyboard
+
+`stdout` (standard output)
+- outgoing character stream, normally to terminal screen
+- buffered until newline comes or buffer is filled 
+
+`stderr` (standard error)
+- outgoing character stream, normally to terminal screen
+- unbuffered
+
+`<stdio.h>` contains prototypes for standard I/O functions such as `printf()` and `scanf()`.
+
+### Redirection
+
+We can make a `myinput` file and then run the command `./a.out < myinput` to redirect the standard input. 
+This changes the standard input of `./a.out` so that it comes from the file rather than reading from the keyboard.
+
+Can also do `./a.out < myinput > myoutout` to redirect standard ouuput.
+
+`>` will override the file (deletes everything). Use `>>` to append instead. 
+
+Valgrind outputs to `stderr`.
+
+Use `2>` to redirect `stderr`. 
+`valgrind --leak-check=yes ./a.out > myout 2> myerr`
+
+`2>&1` means redirect `stderr` to the same place `stdout` is going to. 
+** this does not work `./myprogram 2>&1 my_output_and_errors`
+
+### Pipeline
+
+`cat` puts the contents of the file into the `stdout`. You can chain two commands using a pipe.
+
+`cat myinput | ./a.out` the `stdout` of the first goes directly to the `stdin` of the next. 
+The effect is the same as the command  `./a.out < myinput`. 
+
+`grep` is a program that reads line by line from whatever comes through the program and then will only print the lines that contain the following argument.
+`cat myinput | ./a.out | grep array`
+
+`w` program tells you who logs into the machine right now. 
+
+`tail` is a program that will print the last 10 lines. There is a corresponding `head` program.
+- the `-n` option will allow us to print the last n lines.
+- use `-n +NUM` to output starting with line NUM (line number starts from 1)
+
+`cut` is a program that can cut the columns. 
+- use `-f` to choose a field (column)
+- `-d` option allows you to choose a delimiter
+
+`sed 's/one/two'` changes all occurences of one to two.
+`sed 's/$/@columbia.edu` will add @columbia.edu to the end of the line ($)
+
+`w | tail -n +3 | grep vim | cut -f 1 -d " " | sed 's/$/@columbia.edu/ | sort | uniq > vimusers.txt`
+
+In shell you can do a for loop:
+- `for i in $(cat vimusers.txt); do echo $i; done`
+
+To email everyone:
+`for i in $(cat vimusers.txt); do mutt -s "spam from ap" $i < myinput ; done` 
+
+### To summarize pipelines:
+
+A pipe `|` connects `stdout` to one program to `stdin` of another.
+You can throw redirections in there.
+You can include `sterr` in the flow as well using `2>&1`.
+
+### Formatted I/O
+
+Things such as `scanf()` `printf()`.
+- there are a ton of options: 
+
+## File I/O
+
+`ncat.c` dumps the output but it numbers the lines.
+
+### `EOF`
+
+A special value indicating end-of-file, usually `#defined` to be -1.
+
+### `fprintf(FILE *file, const char *format, ...)`
+More general version of printf. 
+
+For example, 
+`fprintf(stderr, "%s\n", "usage: ncat <file_name>");`
+
+`fprintf(stdout, "%s\n", "usage: ncat <file_name>");` 
+*is equivalent to*
+`printf(stderr, "%s\n", "usage: ncat <file_name>");`
+
+### `fopen(const char *filename, char char *mode)`
+Opens a file. Tell the OS or the stdlib that you would like to work with this file. 
+It prepares the file for subsequent reading and writing.
+
+It will return a pointer to a file `FILE *`.
+
+Take two parameters, filename and one of the following modes:
+- "r" open for reading (file must exist)
+- "w" open for writing (will trash existing file)
+- "a" open for appending (writes will go to end of the file)
+- "r+" for reading and writing (file must already exist)
+- "w+" for reading and writing (will trash existing file)
+- "a+" open for reading adn appending (writes will go to end of the file)
+
+For example,
+`fopen(filename, "r");` 
+
+### `fgets(char *buffer, int size, FILE *file)`
+
+Reads at most size-1 characters into buffer, stopping if newline (included) is read and terminating the buffer with `\0`. 
+Returns NULL on EOF or error.
+Never use `gets()` it is unsafe!
+
+The parameters: pointer to buffer, int size, FILE *file
+
+In `ncat.c` it would read up to (99) characters, including the newline.
+
+#### Example: reading the line `/*`
+
+Let's say that `fgets()` is reading the above line.
+This line has three characters `/` `*` `new line`.
+It stops after reading 3 bytes and then terminates the buffer with NULL.
+
+By the time that `fgets()` returns, you actually put 4 bytes into the buffer.
+This is why `fgets()` only reads size-1 characters.
+
+### `int fputs(const char *str, FILE *file)`
+
+Simpler version of `printf()`, basially.
+Takes a raw string and sends it to the file.
+
+**UNIX operating systems will treat `stdin` `stdout` `stderr` the same way as files**
+It thinks that screen, keyboard are files. Internally, writing to a file or writing to screen is the same thing, it's just that there is a special file for the terminal screen and if you write into it then it will show up on the screen. 
+
+### `fclose(FILE *file)`
+
+Closes the file. You must do this to prevent leaks. 
+
+## Buffering
+
+
+
+
+
+
+*updated L10/22, L10/27*
