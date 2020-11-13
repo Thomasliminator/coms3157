@@ -145,6 +145,16 @@ Closes the file. You must do this to prevent leaks.
 ## Buffering
 
 
+## Standard I/O for Binary Files
+
+You can add the "b" mode parameter in `fopen()`. 
+- `FILE *fp = fopen(filename, "rb");`
+
+In UNIX, there is no distinction between text and binary files, so 'b' has no effect. 
+In Windows, 'b' suppresses newline translation that it normally performs for text files:
+- when reading, turn "\r\n" into "\n".
+- when writing, turn "\n" into "\r\n".
+
 
 
 
