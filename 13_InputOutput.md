@@ -71,10 +71,22 @@ A pipe `|` connects `stdout` to one program to `stdin` of another.
 You can throw redirections in there.
 You can include `sterr` in the flow as well using `2>&1`.
 
-### Formatted I/O
+## Formatted I/O
 
 Things such as `scanf()` `printf()`.
-- there are a ton of options: 
+
+See `lectnote09.c` for reference:
+
+`int sscanf(const char *input_string, const char *format, ...)`
+We read from an input string instead of from `stdin`. 
+- example usage: `sscanf(a, "%d", &n);`
+
+`int sprintf(char *output_buffer, const char *format, ...)`
+Writes to an output buffer instead of `stdout`.
+
+`int snprintf(char *output_buffer, size_t size, const char *format, ...)`
+Safer version of `sprintf()`. 
+
 
 ## File I/O
 
@@ -144,6 +156,15 @@ Closes the file. You must do this to prevent leaks.
 
 ## Buffering
 
+`printf()` is line buffered: everything that you send to `stdout` is collected until you see `'\n'` (new line).
+
+Three types of buffering:
+- unbuffered (stderr)
+- line-buffered (stdout when it's connected to terminal screen)
+- block-buffered (all other files)
+
+`fflush(fp)` will flush the buffer, aka, it will write to file.
+`setbuf(fp, NULL)` will turn off buffering for fp. 
 
 ## Standard I/O for Binary Files
 
@@ -155,8 +176,16 @@ In Windows, 'b' suppresses newline translation that it normally performs for tex
 - when reading, turn "\r\n" into "\n".
 - when writing, turn "\n" into "\r\n".
 
+`int fseek(FILE *file, long offset, int whence)`
+Sets the file position to read or write. The new position, measured in bytes, is obtained by adding offset bytes to the position specified by whence. If whence is set to SEEK_SET, SEEK_CUR, or SEEK_END, the offset is relative to the start of the file, the current position indicator, or end-of-file, respectively.
+Returns 0 on success. 
 
+`size_t fread(void *p, size_t size, size_t n, FILE *file)`
+Reads n objects, each size bytes long, from file into the memory location pointed to by p. Returns  the number of objects successfully read. 
+Call `ferror()` to see error status.
 
+`size_t fwrite(const void *p, size_t size, size_t n, FILE *file)`
+Writes n objects, each size bytes long, from the memory location pointed to by p out to file. Returns the number of objects successfully written. 
 
 
 *updated L10/22, L10/27, L11/5*

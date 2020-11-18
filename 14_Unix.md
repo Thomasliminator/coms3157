@@ -125,6 +125,18 @@ L4: Transport Layer
 - deals with congestion
 - gives the application layer a clean pipeline
 
+## Lab 5 Overview
+
+Shell script is a text file with a bunch of commands.
+If you have a file such as `myscript`, then you can run it by running the command `bash myscript`.
+
+Give it execute permission with `chmod 755 myscript`. You can now run `myscript` as an executable. 
+
+What you need to do is you need to have the first line that says `#!/bin/bash`. 
+This is the name of the program you would like to invoke to run the commands. This first line acts as a directive to the command line.
+
+
+
 
 
 *edited L11/5, NL10/17, NL10/22*
