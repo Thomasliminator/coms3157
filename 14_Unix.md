@@ -125,6 +125,36 @@ L4: Transport Layer
 - deals with congestion
 - gives the application layer a clean pipeline
 
+## File Permissions in UNIX
+
+If you look at the files, you can see file permissions on the first column.
+There are 10 characters, for example, `-rw-r--r--`.
+
+The first character tells us if it is a directory, denoted `d`, or not, denoted `-`.
+
+The following nine characters are file permissions:
+- The first three characters are the permissions for the owner of the file.
+- The next three characters are the permissions for the group.
+- The last three are the permissions for "other", everyone else.
+
+We have read, write, and execute permissions: `rwx`.
+
+For `mdb-add-cs3157`, we have `s` instead of `x`. 
+The s permission has a `set-uid` permission that means if someone else runs the program it runs it as if the owner runs the program. 
+
+The permission strings can be expressed in numbers.
+Each one is a single integer in binary. 
+Each set of 3 bits are converted into an integer which is the representation. 
+These are called octal numbers. 
+
+#### Example
+`rw-r--r--` is 110 100 100 is 6 4 4
+
+`chmod` is the change mode function; allows you to change modes.
+- example usage: `chmod 700 ~`
+
+The special permission is denoted by a 1, you add it to the beginning (left) of the number.
+
 ## Lab 5 Overview
 
 Shell script is a text file with a bunch of commands.
