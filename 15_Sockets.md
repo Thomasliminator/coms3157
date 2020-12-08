@@ -144,4 +144,29 @@ By default, port number 80 is used by default for the web server.
 - we can use netcat and connect to port 80 to act like a web browser
 - the browser will send `GET / HTTP/1.1`
 
+## tcp-sender.c
+
+The sender first sends file size as a 4-byte unsigned int in network byte order.
+- `stat` is a command that will return file information into a `struct stat`.
+
+Secondly, send the file content.
+- For `fread` we want to read 1 byte at a time `sizeof(buf)` times, not the opposite. 
+
+Thirdly, receive fie size back from the server as acknowledgement.
+
+## tcp-recver.c
+
+Firstly, receive file size.
+
+Secondly, receive the file content.
+- `limit = remaining > sizeof(buf) ? sizeof(buf) : remaining;` is called a tertiary expression.
+- means that if `remaining > sizeof(buf)` then `limit = sizeof(buf)`; else, `limit = remaining`. 
+
+Thirdly, send the file size back as acknowledgement.
+- again, use `stat` command to send the file size back.
+- server will close connection here; then, will go back to the top of the infinite loop.
+
+
+
+
 *edited L11/12, L11/17, L11/24*
